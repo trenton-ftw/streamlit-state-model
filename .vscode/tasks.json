@@ -14,11 +14,21 @@
         {
             "label": "export conda env",
             "type": "shell",
-            "command": "conda env export --from-history > dev_environment.yml",
+            "command": "powershell -Command \"conda env export --from-history --no-builds | Select-String -Pattern '^(?!prefix).*' > dev_environment.yml\"",
             "problemMatcher": [],
             "presentation": {
                 "reveal": "always",
                 "panel": "new"
+            }
+        },
+        {
+            "label": "build with flit",
+            "type": "shell",
+            "command": "flit build",
+            "problemMatcher": [],
+            "presentation": {
+            "reveal": "always",
+            "panel": "new"
             }
         }
     ]
