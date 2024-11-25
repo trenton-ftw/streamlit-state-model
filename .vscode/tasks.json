@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "run demo streamlit app",
+            "type": "shell",
+            "command": "streamlit run demo_app/streamlit_app.py",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+            }
+        },
+        {
+            "label": "export conda env",
+            "type": "shell",
+            "command": "conda env export --from-history > dev_environment.yml",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }
+    ]
+}

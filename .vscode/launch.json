@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "demo streamlit app",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "streamlit",
+            "args": [
+                "run",
+                "demo_app/Favorites.py",
+                "--server.port",
+                "8501"
+            ],
+            "env": {
+                "PYTHONPATH": "src"
+            }
+        }
+    ]
+}
