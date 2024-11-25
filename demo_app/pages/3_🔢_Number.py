@@ -8,10 +8,10 @@ st.title("Favorite Number")
 
 st.number_input(
     label = "Select your favorite number",
-    key = Session.get_temp_key_name("favorite_number"),
+    key = session.get_widget_key_name("favorite_number"),
     value = session.favorite_number,
     help = session.docstrings["favorite_number"],
-    on_change = Session.store_value,
+    on_change = session.sync_from_widget_key,
     args = ["favorite_number"]
 )
 

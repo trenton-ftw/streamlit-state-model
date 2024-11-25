@@ -221,19 +221,24 @@ class StateModel:
             docstring = self._get_documentation(name)
             st.session_state["_state_model"][self.class_name]["_docstrings"][name] = docstring
 
-    @classmethod
-    def get_temp_key_name(cls,attr_name: str) -> str: 
-        "The temporary key name used to store the value of the attribute in streamlit.session_state within the current page."
-        return "_"+attr_name
+    def get_widget_key_name(self, attr_name: str) -> str: 
+        "The temporary key name used to store the value of the attribute in streamlit.session_state to be used within widgets on the current page."
+        return "_" + attr_name
     
-    @classmethod
-    def load_value(cls,attr_name: str) -> None:
-        "Load the value of the attribute from streamlit.session_state."
-        class_name = cls.__name__
-        st.session_state[cls.get_temp_key_name(attr_name)] = st.session_state["_state_model"][class_name][attr_name]
+    def sync_to_widget_key(self, attr_name: str) -> None:
+        """
+        Store the value of a specified attribute in a key in streamlit.session_state to be used for interacting with that attribute value from a widget.
 
-    @classmethod
-    def store_value(cls,attr_name: str) -> None:
-        "Store the value of the attribute in streamlit.session_state."
-        class_name = cls.__name__
-        st.session_state["_state_model"][class_name][attr_name] = st.session_state[cls.get_temp_key_name(attr_name)]
+        Args:
+            attr_name (str): The name of the attribute to synchronize.
+        """
+        st.session_state[self.get_widget_key_name(attr_name)] = st.session_state["_state_model"][self.class_name][attr_name]
+
+    def sync_from_widget_key(self, attr_name: str) -> None:
+        """
+        Store the value currently in a given attribute's widget key in streamlit.session_state into the class instance's attribute. 
+
+        Args:
+            attr_name (str): The name of the attribute to synchronize.
+        """
+        st.session_state["_state_model"][self.class_name][attr_name] = st.session_state[self.get_widget_key_name(attr_name)]

@@ -2,34 +2,37 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "run demo streamlit app",
-            "type": "shell",
-            "command": "streamlit run demo_app/streamlit_app.py",
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "always",
-                "panel": "new",
-            }
-        },
-        {
             "label": "export conda env",
             "type": "shell",
             "command": "powershell -Command \"conda env export --from-history --no-builds | Select-String -Pattern '^(?!prefix).*' > dev_environment.yml\"",
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "always",
-                "panel": "new"
-            }
+            "problemMatcher": []
         },
         {
             "label": "build with flit",
             "type": "shell",
             "command": "flit build",
-            "problemMatcher": [],
-            "presentation": {
-            "reveal": "always",
-            "panel": "new"
-            }
+            "problemMatcher": []
+        },
+        {
+            "label": "upload to testpypi",
+            "type": "shell",
+            "command": "twine upload --repository testpypi dist/* -u __token__ -p ${input:pypiToken}",
+            "problemMatcher": []
+        },
+        {
+            "label": "upload to pypi",
+            "type": "shell",
+            "command": "twine upload dist/* -u __token__ -p ${input:pypiToken}",
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "pypiToken",
+            "type": "promptString",
+            "description": "Enter your PyPI token",
+            "password": true,
+            "default": ""
         }
     ]
 }

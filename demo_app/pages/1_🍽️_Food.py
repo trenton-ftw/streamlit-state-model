@@ -9,14 +9,13 @@ st.title("Favorite Food")
 available_foods = {"🍕", "🍣", "🌮", "🍔", "🍦", "🍏", "🍌", "🍇", "🍉", "🍓"}
 st.multiselect(
     label = "Select your favorite foods",
-    key = "food",
     options = available_foods,
     default = session.favorite_foods,
-    key = Session.get_temp_key_name("favorite_foods"),
+    key = session.get_widget_key_name("favorite_foods"),
     help = session.docstrings["favorite_foods"],
-    on_change = Session.store_value,
+    on_change = session.sync_from_widget_key,
     args = ["favorite_foods"]
 )
 
 if st.button(label="Next 👉",type="primary"):
-        st.switch_page(page="pages/2_🎨_Color.py")     
+        st.switch_page(page="pages/2_🎨_Color.py")

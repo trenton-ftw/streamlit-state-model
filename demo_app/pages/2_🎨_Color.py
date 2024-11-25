@@ -9,9 +9,9 @@ st.title("Favorite Color")
 st.color_picker(
     label = "Select your favorite color",
     value = session.favorite_color,
-    key = session.get_temp_key_name("favorite_color"),
+    key = session.get_widget_key_name("favorite_color"),
     help = session.docstrings["favorite_color"],
-    on_change = Session.store_value,
+    on_change = session.sync_from_widget_key,
     args = ["favorite_color"]
 )
 
