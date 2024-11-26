@@ -24,7 +24,18 @@
             "type": "shell",
             "command": "twine upload dist/* -u __token__ -p ${input:pypiToken}",
             "problemMatcher": []
-        }
+        },
+        {
+            "label": "run demo streamlit app",
+            "type": "shell",
+            "command": "streamlit run demo_app/Favorites.py --server.port 8501",
+            "problemMatcher": [],
+            "options": {
+                "env": {
+                    "PYTHONPATH": "src"
+                }
+            }
+        },
     ],
     "inputs": [
         {
