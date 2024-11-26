@@ -33,4 +33,4 @@ classifiers = [
 name = "streamlit_state_model"
 
 [tool.pytest.ini_options]
-pythonpath = ["src"]
+pythonpath = ["src","demo_app"]
