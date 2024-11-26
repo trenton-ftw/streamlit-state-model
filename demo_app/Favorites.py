@@ -1,5 +1,5 @@
 import streamlit as st 
-from demo_app.models.session import Session
+from models.session import Session
 
 #initial build of state class instance 
 session = Session(mode="build")
@@ -7,6 +7,7 @@ session = Session(mode="build")
 #header info 
 st.header(body="streamlit-state-model Demo App")
 st.caption(body="This app demonstrates the statefulness of a StateModel as a middleware to st.session_state in a multipage app.")
+st.link_button(label="📄 View the code on GitHub",url="https://github.com/trenton-ftw/streamlit-state-model")
 
 if session.is_default():
     st.write("It looks like you haven't selected your favorites yet?? 🤔")

@@ -1,5 +1,5 @@
 import streamlit as st 
-from demo_app.models.session import Session
+from models.session import Session
 
 #lazy mode lets you use the 'current' state of the state model
 session = Session()
