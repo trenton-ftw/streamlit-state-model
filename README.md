@@ -1,15 +1,14 @@
 # Streamlit State Model
-Tired of writing repetitive `if key not in st.session_state` checks in your Streamlit apps?  
-  
-Introducing `StateModel` - a streamlined solution that lets you manage `session_state` effortlessly through standard Python class definitions. With `StateModel`, you can store and retrieve class attributes directly in `session_state` without any extra hassle, making your code cleaner and more maintainable.
+
+Managing session state in Streamlit can be tedious, especially when repeatedly checking and updating st.session_state. Streamlit State Model offers a clean, class-based approach to this problem. By subclassing our StateModel, you can define what you want to be stored in Streamlit's `session_state` with standard Python in the form of classes and attributes while our tool automatically syncs these with Streamlit's session state—eliminating repetitive code and reducing errors. This completely eliminates the need for you to interact with st.session_state directly. 
 
 ## Features
 
 - **Easy Setup:** Use existing or new class definitions to store in `session_state`.
-- **Inline Integration:** Eliminate spaghetti `if` statements for `session_state` interaction.
-- **Default Values:** Automatically default class-defined values into `session_state`.
+- **Default Values:** Automatically default class-defined values into `session_state` based on the defined defaults in your class.
+- **Inline Integration:** Eliminate spaghetti `if` statements for `session_state` interaction and declare your class instance inline with the rest of your code.
 - **Persistence:** Maintain class attribute values across page refreshes and switches in multi-page apps.
-- **Intellisense Support:** Retain docstrings and type intellisense with `StateModel`.
+- **Intellisense Support:** Retain normal docstrings and type intellisense that you normally lose when working with session_state.
 - **Docstring Access:** Access attribute docstrings via the `docstrings` dictionary within your app.
 
 ## Getting Started
@@ -48,7 +47,7 @@ st.write(session.favorite_number) #outputs 1 as set in streamlit_app.py
 
 ## Example
 
-Explore our demo Streamlit app in the `/demo_app` directory for an example of integrating `StateModel` into a multi-page app (coming soon to the Streamlit Community).
+Explore our demo Streamlit app in the `/demo_app` directory for an example of integrating `StateModel` into a multi-page app on Streamlit Community Cloud here: [state-model-demo-app](https://state-model-demo-app.streamlit.app/).
 
 We're also working on generating API docs for `StateModel` because it already inclues many helper functions (with more to come) such as:
 - `dump()`: View all attribute values.
@@ -60,6 +59,5 @@ We're also working on generating API docs for `StateModel` because it already in
 If you have an idea for a new feature or have found a bug, please open an issue or submit a pull request. I don't have a formal code of conduct or contribution guidelines yet, but I appreciate respectful and constructive contributions.
 
 ## Development
-The project is built with Flit and a Conda development environment (dev_environment.yml) is provided in the project root. 
 
-Tests are built using pytest and [Streamlit's app testing framework](https://docs.streamlit.io/develop/api-reference/app-testing) ran against the demo app.
+For more details on contributing and the CI/CD process, please refer to the [development documentation](docs/development.md).

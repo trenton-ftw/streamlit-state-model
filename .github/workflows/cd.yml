@@ -1,0 +1,66 @@
+name: CD
+
+on:
+  workflow_run:
+    workflows: [CI]
+    branches: [main, dev]
+    types:
+      - completed
+
+permissions:
+  contents: write  #required for creating releases
+  id-token: write  #required to use pypi trusted publishing
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: |
+      github.event.workflow_run.conclusion == 'success'
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Extract version from pyproject.toml
+        id: extract_version
+        run: |
+          NEW_VERSION=$(grep -Po '(?<=^version = ")[^"]*' pyproject.toml)
+          echo "new_version=$NEW_VERSION" >> "$GITHUB_ENV"
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dev dependencies
+        run: |
+          pip install -r dev_requirements.txt
+
+      - name: Build with flit
+        run: |
+          flit build
+
+      - name: Publish to TestPyPI
+        if: ${{ github.event.workflow_run.head_branch == 'dev' }}
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/p/streamlit-state-model/
+          verbose: true
+
+      - name: Publish to PyPI
+        if: ${{ github.event.workflow_run.head_branch == 'main' }}
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://pypi.org/p/streamlit-state-model/
+          verbose: true
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist/
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create ${{ steps.extract_version.outputs.new_version }} dist/* --title ${{ steps.extract_version.outputs.new_version }} --generate-notes

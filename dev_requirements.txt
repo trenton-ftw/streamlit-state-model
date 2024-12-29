@@ -1,0 +1,4 @@
+pytest
+streamlit
+flit
+twine
