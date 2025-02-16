@@ -4,7 +4,7 @@ build-backend = "flit.buildapi"
 
 [project]
 name = "streamlit-state-model"
-version = "0.2.0"
+version = "0.2.1"
 description = "A package that provides a StateModel for Streamlit applications, allowing easy management of session state through class attributes."
 authors = [
     { name="Trenton Smith", email="trenton@databutsmart.com" }

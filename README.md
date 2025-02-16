@@ -2,7 +2,7 @@
 
 I love Streamlit, but working with `st.session_state` can be tedious. Coming from an OOP background, I cringe at managing each key in `st.session_state` individually, checking if it exists, and losing intellisense for names and types.
 
-So I made `streamlit-state-model` which offers a base class `StateModel` that you can subclass to push your class' attribute I/O directly into `st.session_state`. This means you define what should exist in `st.session_state` once, and then access those values anywhere in your Streamlit app with the expected statefulness of `st.session_state`.
+So I made `streamlit-state-model` which offers a base class `StateModel` that you can subclass to push your class' attribute I/O directly into `st.session_state`. This means you define what should exist in `st.session_state` once in the form of a normal python class, and then access those values anywhere in your Streamlit app with the expected statefulness of `st.session_state`.
 
 ## Features
 
