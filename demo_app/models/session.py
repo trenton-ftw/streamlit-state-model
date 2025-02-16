@@ -8,7 +8,5 @@ class Session(ssm.StateModel):
     "The user's favorite number."
     favorite_foods: List[str] = ssm.DefaultFactory(lambda: ["🍕", "🍣", "🌮"])
     """
-    A list of the user's favorite foods as emoji strings.
-    
-    Users can select as many as they like (from the available options).
+    A list of the user's favorite foods as emoji strings. Users can select as many as they like (from the available options).
     """
