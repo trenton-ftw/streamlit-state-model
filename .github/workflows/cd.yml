@@ -68,4 +68,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create ${{ steps.extract_version.outputs.new_version }} dist/* --title ${{ steps.extract_version.outputs.new_version }} --generate-notes
+          gh release create ${{ steps.extract_version.outputs.new_version }} --title ${{ steps.extract_version.outputs.new_version }} --generate-notes dist/*
