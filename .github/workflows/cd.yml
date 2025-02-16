@@ -22,12 +22,17 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
-      - name: Extract version from pyproject.toml
-        id: extract_version
+      - name: Check pypi versions
+        uses: maybe-hello-world/pyproject-check-version@v4
+        id: versioncheck
+        with:
+          pyproject-path: "./pyproject.toml"
+      
+      - name: check output
         run: |
-          VERSION=$(grep -Po '(?<=^version = ")[[^"]*' pyproject.toml)
-          echo "Version found: $VERSION"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+            echo "Output: ${{ steps.versioncheck.outputs.local_version_is_higher }}"
+            echo "Local version: ${{ steps.versioncheck.outputs.local_version }}"
+            echo "Public version: ${{ steps.versioncheck.outputs.public_version }}"
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -69,4 +74,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create v${{ steps.extract_version.outputs.version }} --generate-notes dist/*
+          gh release create v${{ steps.versioncheck.outputs.local_version }} --generate-notes dist/*
