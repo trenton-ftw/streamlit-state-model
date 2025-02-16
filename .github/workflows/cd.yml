@@ -48,7 +48,9 @@ jobs:
           flit build
 
       - name: Publish to TestPyPI
-        if: ${{ github.event.workflow_run.head_branch == 'dev' }}
+        if: |
+          github.event_name == 'workflow_dispatch' ||
+          (github.event_name == 'workflow_run' && github.event.workflow_run.head_branch == 'dev')
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/p/streamlit-state-model/
